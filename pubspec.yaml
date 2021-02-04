@@ -22,4 +22,5 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/local_restaurant.json
+    - assets/data/local_restaurant.json
+    - assets/images/icon.png
