@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rest_o/common/styles.dart';
 import 'package:rest_o/screens/home.dart';
 
 void main() {
@@ -11,6 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Rest-O',
       initialRoute: HomeScreen.id,
+      theme: ThemeData(
+        textTheme: textTheme,
+      ),
       routes: {
         HomeScreen.id: (context) => HomeScreen(),
       },
