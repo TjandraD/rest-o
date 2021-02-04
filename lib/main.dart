@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
       initialRoute: HomeScreen.id,
       theme: ThemeData(
         textTheme: textTheme,
+        primaryColor: primaryColor,
+        accentColor: secondaryColor,
       ),
       routes: {
         HomeScreen.id: (context) => HomeScreen(),

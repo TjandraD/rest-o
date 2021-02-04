@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final textTheme = TextTheme(
+final Color primaryColor = Color(0xFF3949AB);
+final Color secondaryColor = Color(0xFF5E35B1);
+
+final TextTheme textTheme = TextTheme(
   headline1: GoogleFonts.prozaLibre(
       fontSize: 98, fontWeight: FontWeight.w300, letterSpacing: -1.5),
   headline2: GoogleFonts.prozaLibre(
