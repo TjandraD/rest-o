@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rest_o/common/styles.dart';
-import 'package:rest_o/screens/home.dart';
+import 'package:rest_o/screens/details_screen.dart';
+import 'package:rest_o/screens/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         HomeScreen.id: (context) => HomeScreen(),
+        DetailsScreen.id: (context) => DetailsScreen(),
       },
     );
   }
