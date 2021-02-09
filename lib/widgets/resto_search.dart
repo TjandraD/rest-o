@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rest_o/data/model/restaurant.dart';
 import 'package:rest_o/widgets/resto_card.dart';
+import '../screens/details_screen.dart';
 
 class RestaurantSearch extends SearchDelegate<Restaurant> {
   @override
@@ -40,11 +41,20 @@ class RestaurantSearch extends SearchDelegate<Restaurant> {
             itemCount: restaurants.length,
             itemBuilder: (context, index) {
               Restaurant restaurant = restaurants[index];
-              return RestoCard(
-                imgUrl: restaurant.pictureId,
-                name: restaurant.name,
-                city: restaurant.city,
-                rating: restaurant.rating,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    DetailsScreen.id,
+                    arguments: restaurant,
+                  );
+                },
+                child: RestoCard(
+                  imgUrl: restaurant.pictureId,
+                  name: restaurant.name,
+                  city: restaurant.city,
+                  rating: restaurant.rating,
+                ),
               );
             },
           );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/model/restaurant.dart';
 import 'resto_card.dart';
+import '../screens/details_screen.dart';
 
 class MainRestoList extends StatelessWidget {
   @override
@@ -16,11 +17,20 @@ class MainRestoList extends StatelessWidget {
             itemCount: restaurants.length,
             itemBuilder: (context, index) {
               Restaurant restaurant = restaurants[index];
-              return RestoCard(
-                imgUrl: restaurant.pictureId,
-                name: restaurant.name,
-                city: restaurant.city,
-                rating: restaurant.rating,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    DetailsScreen.id,
+                    arguments: restaurant,
+                  );
+                },
+                child: RestoCard(
+                  imgUrl: restaurant.pictureId,
+                  name: restaurant.name,
+                  city: restaurant.city,
+                  rating: restaurant.rating,
+                ),
               );
             },
           );
