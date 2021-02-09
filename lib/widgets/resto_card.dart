@@ -23,7 +23,7 @@ class RestoCard extends StatelessWidget {
         vertical: 8.0,
       ),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.6),
+        color: Colors.white.withOpacity(0.75),
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
         boxShadow: <BoxShadow>[
           BoxShadow(
