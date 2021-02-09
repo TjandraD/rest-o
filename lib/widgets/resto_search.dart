@@ -50,6 +50,7 @@ class RestaurantSearch extends SearchDelegate<Restaurant> {
                   );
                 },
                 child: RestoCard(
+                  id: restaurant.id,
                   imgUrl: restaurant.pictureId,
                   name: restaurant.name,
                   city: restaurant.city,

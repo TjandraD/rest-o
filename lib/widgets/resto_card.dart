@@ -3,12 +3,14 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class RestoCard extends StatelessWidget {
+  final String id;
   final String imgUrl;
   final String name;
   final String city;
   final double rating;
 
   RestoCard({
+    @required this.id,
     @required this.imgUrl,
     @required this.name,
     @required this.city,
@@ -41,16 +43,19 @@ class RestoCard extends StatelessWidget {
               topLeft: Radius.circular(16.0),
               bottomLeft: Radius.circular(16.0),
             ),
-            child: CachedNetworkImage(
-              imageUrl: imgUrl,
-              height: 120.0,
-              width: 160.0,
-              fit: BoxFit.cover,
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  Center(
-                      child: CircularProgressIndicator(
-                          value: downloadProgress.progress)),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+            child: Hero(
+              tag: 'image_$id',
+              child: CachedNetworkImage(
+                imageUrl: imgUrl,
+                height: 120.0,
+                width: 160.0,
+                fit: BoxFit.cover,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(
+                        child: CircularProgressIndicator(
+                            value: downloadProgress.progress)),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
             ),
           ),
           SizedBox(

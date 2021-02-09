@@ -26,6 +26,7 @@ class MainRestoList extends StatelessWidget {
                   );
                 },
                 child: RestoCard(
+                  id: restaurant.id,
                   imgUrl: restaurant.pictureId,
                   name: restaurant.name,
                   city: restaurant.city,
