@@ -89,6 +89,7 @@ class RestoCard extends StatelessWidget {
                 starCount: 5,
                 rating: rating,
                 size: 20,
+                isReadOnly: true,
                 color: Theme.of(context).primaryColor,
                 borderColor: Theme.of(context).primaryColor,
               ),
