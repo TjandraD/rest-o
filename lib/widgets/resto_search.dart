@@ -91,6 +91,7 @@ class RestaurantSearch extends SearchDelegate<Restaurant> {
                 title: Text(restaurant.name),
                 onTap: () {
                   query = restaurant.name.toLowerCase();
+                  showResults(context);
                 },
               );
             },
