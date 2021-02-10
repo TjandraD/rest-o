@@ -26,4 +26,4 @@ flutter:
 
   assets:
     - assets/data/local_restaurant.json
-    - assets/images/icon.png
+    - assets/images/
