@@ -1,16 +1,16 @@
-# rest_o
+# Rest-O
 
-A new Flutter project.
+## Getting Started - Installing Guides
 
-## Getting Started
+- Make sure you have Flutter installed in your machine (for more reference go to [Flutter docs](https://flutter.dev/docs/get-started/install))
+- Clone this repo to your local machine (git clone https://github.com/TjandraD/rest-o.git)
+- Fire up your emulator / connect your real device via USB Debugging
+- Try run the **flutter run** command in your terminal / command prompt
+- The app is up and running
 
-This project is a starting point for a Flutter application.
+Bonus step if you want to build the app
+- Run **flutter build apk**
 
-A few resources to get you started if this is your first Flutter project:
+## App Snippets
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![App Snippet](https://user-images.githubusercontent.com/46013258/108455816-8618b780-72a1-11eb-9ae6-94062d14df4a.png)
