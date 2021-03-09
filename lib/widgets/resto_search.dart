@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rest_o/data/api/api_helper.dart';
-import 'package:rest_o/data/model/restaurant_list.dart';
+import 'package:rest_o/data/model/restaurant_search.dart';
 import 'package:rest_o/widgets/resto_card.dart';
 import '../screens/details_screen.dart';
 
@@ -72,6 +72,6 @@ class RestaurantSearch extends SearchDelegate<Restaurant> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return null;
+    return Container();
   }
 }
