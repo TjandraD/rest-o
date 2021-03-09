@@ -37,7 +37,7 @@ class Restaurant {
   String city;
   String address;
   String pictureId;
-  List<Map> categories;
+  List categories;
   Menus menus;
   double rating;
   List<CustomerReview> customerReviews;
@@ -81,8 +81,8 @@ class Menus {
     this.drinks,
   });
 
-  List<Map> foods;
-  List<Map> drinks;
+  List foods;
+  List drinks;
 
   factory Menus.fromJson(Map<String, dynamic> json) => Menus(
         foods: json['foods'],
