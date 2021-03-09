@@ -46,7 +46,8 @@ class RestoCard extends StatelessWidget {
             child: Hero(
               tag: 'image_$id',
               child: CachedNetworkImage(
-                imageUrl: imgUrl,
+                imageUrl:
+                    'https://restaurant-api.dicoding.dev/images/small/$imgUrl',
                 height: 120.0,
                 width: 160.0,
                 fit: BoxFit.cover,

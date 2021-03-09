@@ -49,7 +49,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       child: Hero(
                         tag: 'image_${restaurant.id}',
                         child: CachedNetworkImage(
-                          imageUrl: restaurant.pictureId,
+                          imageUrl:
+                              'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}',
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) => Center(
                                   child: CircularProgressIndicator(
