@@ -44,7 +44,7 @@ class RestaurantSearch extends SearchDelegate<Restaurant> {
                   Navigator.pushNamed(
                     context,
                     DetailsScreen.id,
-                    arguments: restaurant,
+                    arguments: restaurant.id,
                   );
                 },
                 child: RestoCard(

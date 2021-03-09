@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.pushNamed(
                       context,
                       DetailsScreen.id,
-                      arguments: restaurant,
+                      arguments: restaurant.id,
                     );
                   },
                   child: RestoCard(
