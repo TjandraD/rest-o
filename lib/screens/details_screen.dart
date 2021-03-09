@@ -35,7 +35,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           future: _restaurant,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              final Restaurant restaurant = snapshot.data.restaurants;
+              final Restaurant restaurant = snapshot.data.restaurant;
 
               return Padding(
                 padding: EdgeInsets.all(16.0),
