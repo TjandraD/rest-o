@@ -13,6 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.1
   flutter_native_splash: ^0.2.9
   google_fonts: ^1.1.2
+  http: ^0.12.0+2
   smooth_star_rating: ^1.1.1
 
 dev_dependencies:
