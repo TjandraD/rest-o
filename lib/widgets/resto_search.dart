@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rest_o/data/model/restaurant.dart';
+import 'package:rest_o/data/api/api_helper.dart';
+import 'package:rest_o/data/model/restaurant_list.dart';
 import 'package:rest_o/widgets/resto_card.dart';
 import '../screens/details_screen.dart';
 
@@ -29,13 +30,10 @@ class RestaurantSearch extends SearchDelegate<Restaurant> {
   @override
   Widget buildResults(BuildContext context) {
     return FutureBuilder(
-      future: DefaultAssetBundle.of(context)
-          .loadString('assets/data/local_restaurant.json'),
+      future: ApiHelper().searchRestaurants(query),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final List<Restaurant> restaurants = parseRestaurant(snapshot.data)
-              .where((r) => r.name.toLowerCase().contains(query))
-              .toList();
+          final List<Restaurant> restaurants = snapshot.data.restaurants;
 
           return ListView.builder(
             itemCount: restaurants.length,
@@ -74,41 +72,6 @@ class RestaurantSearch extends SearchDelegate<Restaurant> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return FutureBuilder(
-      future: DefaultAssetBundle.of(context)
-          .loadString('assets/data/local_restaurant.json'),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final List<Restaurant> restaurants = parseRestaurant(snapshot.data)
-              .where((r) => r.name.toLowerCase().contains(query))
-              .toList();
-
-          return ListView.builder(
-            itemCount: restaurants.length,
-            itemBuilder: (context, index) {
-              Restaurant restaurant = restaurants[index];
-              return ListTile(
-                title: Text(restaurant.name),
-                onTap: () {
-                  query = restaurant.name.toLowerCase();
-                  showResults(context);
-                },
-              );
-            },
-          );
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Column(
-              children: [
-                Icon(Icons.error),
-                Text('Couldn\'t load data!'),
-              ],
-            ),
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
+    return null;
   }
 }
