@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:rest_o/data/api/api_helper.dart';
 import '../widgets/resto_search.dart';
-import '../data/model/restaurant.dart';
+import '../data/model/restaurant_list.dart';
 import '../widgets/resto_card.dart';
 import '../screens/details_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Future<RestaurantList> _restaurantList;
+
+  @override
+  void initState() {
+    super.initState();
+    _restaurantList = ApiHelper().getRestaurantList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +41,10 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-        future: DefaultAssetBundle.of(context)
-            .loadString('assets/data/local_restaurant.json'),
+        future: _restaurantList,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final List<Restaurant> restaurants = parseRestaurant(snapshot.data);
+            final List<Restaurant> restaurants = snapshot.data.restaurants;
 
             return ListView.builder(
               itemCount: restaurants.length,
