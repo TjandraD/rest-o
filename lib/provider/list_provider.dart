@@ -26,17 +26,17 @@ class ListProvider extends ChangeNotifier {
       final restaurant = await apiHelper.getRestaurantList();
       if (restaurant.restaurants.isEmpty) {
         _stateList = ResultState.NoData;
+        _messageList = 'Empty Data';
         notifyListeners();
-        return _messageList = 'Empty Data';
       } else {
         _stateList = ResultState.HasData;
+        _restaurantsList = restaurant;
         notifyListeners();
-        return _restaurantsList = restaurant;
       }
     } catch (e) {
       _stateList = ResultState.Error;
+      _messageList = 'Error $e';
       notifyListeners();
-      return _messageList = 'Error $e';
     }
   }
 }

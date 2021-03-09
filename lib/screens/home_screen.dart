@@ -1,28 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:rest_o/data/api/api_helper.dart';
+import 'package:provider/provider.dart';
+import 'package:rest_o/provider/list_provider.dart';
 import '../widgets/resto_search.dart';
 import '../data/model/restaurant_list.dart';
 import '../widgets/resto_card.dart';
 import '../screens/details_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   static const String id = 'home_screen';
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  Future<RestaurantList> _restaurantList;
-
-  @override
-  void initState() {
-    super.initState();
-    _restaurantList = ApiHelper().getRestaurantList();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    Provider.of<ListProvider>(context, listen: false).getList();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -40,11 +29,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: _restaurantList,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final List<Restaurant> restaurants = snapshot.data.restaurants;
+      body: Consumer<ListProvider>(
+        builder: (context, state, _) {
+          if (state.stateList == ResultState.Loading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state.stateList == ResultState.HasData) {
+            final List<Restaurant> restaurants =
+                state.restaurantsList.restaurants;
 
             return ListView.builder(
               itemCount: restaurants.length,
@@ -68,13 +61,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             );
-          } else if (snapshot.hasError) {
+          } else if (state.stateList == ResultState.NoData) {
             return Center(
-              child: Icon(Icons.error),
+              child: Text(
+                state.messageList,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            );
+          } else if (state.stateList == ResultState.Error) {
+            return Center(
+              child: Text(
+                state.messageList,
+                style: Theme.of(context).textTheme.headline5,
+              ),
             );
           } else {
             return Center(
-              child: CircularProgressIndicator(),
+              child: Text(
+                state.messageList,
+                style: Theme.of(context).textTheme.headline5,
+              ),
             );
           }
         },
