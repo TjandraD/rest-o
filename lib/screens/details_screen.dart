@@ -1,45 +1,34 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:rest_o/data/api/api_helper.dart';
+import 'package:provider/provider.dart';
 import 'package:rest_o/data/model/restaurant_details.dart';
+import 'package:rest_o/provider/details_provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import '../widgets/fnb_selector.dart';
 import '../widgets/menu_list.dart';
 
-class DetailsScreen extends StatefulWidget {
+class DetailsScreen extends StatelessWidget {
   static const String id = 'details_screen';
   final String restaurantId;
 
   DetailsScreen({@required this.restaurantId});
 
   @override
-  _DetailsScreenState createState() => _DetailsScreenState();
-}
-
-class _DetailsScreenState extends State<DetailsScreen> {
-  Future<RestaurantDetails> _restaurant;
-  bool isRestoFavorited = false;
-  String menuSelected = 'Food';
-
-  @override
-  void initState() {
-    super.initState();
-    _restaurant = ApiHelper().getRestaurantDetails(widget.restaurantId);
-  }
-
-  @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
+    Provider.of<DetailsProvider>(context, listen: false)
+        .getDetails(restaurantId);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
-          child: FutureBuilder(
-            future: _restaurant,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                final Restaurant restaurant = snapshot.data.restaurant;
+          child: Consumer<DetailsProvider>(
+            builder: (context, state, _) {
+              if (state.stateDetails == DetailsState.HasData) {
+                final Restaurant restaurant =
+                    state.restaurantsDetails.restaurant;
 
                 return Padding(
                   padding: EdgeInsets.all(16.0),
@@ -122,16 +111,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               ],
                             ),
                             IconButton(
-                              icon: Icon(isRestoFavorited
+                              icon: Icon(state.isRestoFavorited
                                   ? Icons.favorite
                                   : Icons.favorite_outline),
-                              color: isRestoFavorited
+                              color: state.isRestoFavorited
                                   ? Colors.red
                                   : Colors.grey[600],
                               onPressed: () {
-                                setState(() {
-                                  isRestoFavorited = !isRestoFavorited;
-                                });
+                                state.isRestoFavorited =
+                                    !state.isRestoFavorited;
                               },
                             ),
                           ],
@@ -157,13 +145,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ),
                           FnBSelector(
                             title: 'Food',
-                            menuSelected: menuSelected,
+                            menuSelected: state.menuSelected,
                             onTap: () {
-                              setState(() {
-                                if (menuSelected == 'Beverage') {
-                                  menuSelected = 'Food';
-                                }
-                              });
+                              if (state.menuSelected == 'Beverage') {
+                                state.menuSelected = 'Food';
+                              }
                             },
                           ),
                           SizedBox(
@@ -171,13 +157,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ),
                           FnBSelector(
                             title: 'Beverage',
-                            menuSelected: menuSelected,
+                            menuSelected: state.menuSelected,
                             onTap: () {
-                              setState(() {
-                                if (menuSelected == 'Food') {
-                                  menuSelected = 'Beverage';
-                                }
-                              });
+                              if (state.menuSelected == 'Food') {
+                                state.menuSelected = 'Beverage';
+                              }
                             },
                           ),
                         ],
@@ -192,7 +176,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         width: double.infinity,
                         height: 150.0,
                         child: MenuList(
-                          menuSelected: menuSelected,
+                          menuSelected: state.menuSelected,
                           foods: restaurant.menus.foods,
                           drinks: restaurant.menus.drinks,
                         ),
@@ -200,11 +184,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ],
                   ),
                 );
-              } else if (snapshot.hasError) {
+              } else if (state.stateDetails == DetailsState.Error) {
                 return Center(
-                  child: Icon(Icons.error),
+                  child: Text(
+                    state.messageDetails,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
                 );
-              } else {
+              } else if (state.stateDetails == DetailsState.Loading) {
                 return Column(
                   children: [
                     SizedBox(
@@ -213,6 +200,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ),
                     CircularProgressIndicator(),
                   ],
+                );
+              } else if (state.stateDetails == DetailsState.NoData) {
+                return Center(
+                  child: Text(
+                    state.messageDetails,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Text(
+                    state.messageDetails,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
                 );
               }
             },

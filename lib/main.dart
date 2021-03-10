@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_o/common/styles.dart';
 import 'package:rest_o/data/api/api_helper.dart';
+import 'package:rest_o/provider/details_provider.dart';
 import 'package:rest_o/provider/list_provider.dart';
 import 'package:rest_o/screens/details_screen.dart';
 import 'package:rest_o/screens/home_screen.dart';
@@ -25,9 +26,11 @@ class MyApp extends StatelessWidget {
         HomeScreen.id: (context) => ChangeNotifierProvider<ListProvider>(
             create: (context) => ListProvider(apiHelper: ApiHelper()),
             child: HomeScreen()),
-        DetailsScreen.id: (context) => DetailsScreen(
+        DetailsScreen.id: (context) => ChangeNotifierProvider<DetailsProvider>(
+            create: (context) => DetailsProvider(apiHelper: ApiHelper()),
+            child: DetailsScreen(
               restaurantId: ModalRoute.of(context).settings.arguments,
-            ),
+            )),
       },
     );
   }
