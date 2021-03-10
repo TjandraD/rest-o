@@ -44,10 +44,13 @@ class ListProvider extends ChangeNotifier {
         _messageList = 'Error $e';
         notifyListeners();
       }
-    } else {
+    } else if (connectivityResult == ConnectivityResult.none) {
       _stateList = ListState.Error;
       _messageList =
           'No connection detected! Please check your internet connection';
+      notifyListeners();
+    } else {
+      _stateList = ListState.Loading;
       notifyListeners();
     }
   }

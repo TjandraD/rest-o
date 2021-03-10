@@ -43,10 +43,13 @@ class DetailsProvider extends ChangeNotifier {
         _messageDetails = 'Error $e';
         notifyListeners();
       }
-    } else {
+    } else if (connectivityResult == ConnectivityResult.none) {
       _stateDetails = DetailsState.Error;
       _messageDetails =
           'No connection detected! Please check your internet connection';
+      notifyListeners();
+    } else {
+      _stateDetails = DetailsState.Loading;
       notifyListeners();
     }
   }
