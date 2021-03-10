@@ -22,8 +22,8 @@ class DetailsProvider extends ChangeNotifier {
   Future<dynamic> getDetails(String id) async {
     try {
       _stateDetails = DetailsState.Loading;
-      notifyListeners();
       final restaurant = await apiHelper.getRestaurantDetails(id);
+      notifyListeners();
 
       if (restaurant.restaurant == null) {
         _stateDetails = DetailsState.NoData;
