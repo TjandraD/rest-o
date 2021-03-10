@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rest_o/data/api/api_helper.dart';
 import 'package:rest_o/data/model/restaurant_list.dart';
@@ -24,26 +23,31 @@ class ListProvider extends ChangeNotifier {
   ListState get stateList => _stateList;
 
   Future<dynamic> _getList() async {
-    try {
-      _stateList = ListState.Loading;
-      notifyListeners();
-      final restaurant = await apiHelper.getRestaurantList();
-      if (restaurant.restaurants.isEmpty) {
-        _stateList = ListState.NoData;
-        _messageList = 'Empty Data';
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      try {
+        _stateList = ListState.Loading;
         notifyListeners();
-      } else {
-        _stateList = ListState.HasData;
-        _restaurantsList = restaurant;
+        final restaurant = await apiHelper.getRestaurantList();
+        if (restaurant.restaurants.isEmpty) {
+          _stateList = ListState.NoData;
+          _messageList = 'Empty Data';
+          notifyListeners();
+        } else {
+          _stateList = ListState.HasData;
+          _restaurantsList = restaurant;
+          notifyListeners();
+        }
+      } catch (e) {
+        _stateList = ListState.Error;
+        _messageList = 'Error $e';
         notifyListeners();
       }
-    } on SocketException {
+    } else {
       _stateList = ListState.Error;
       _messageList =
-          'No internet connection detected, please check your internet';
-    } catch (e) {
-      _stateList = ListState.Error;
-      _messageList = 'Error $e';
+          'No connection detected! Please check your internet connection';
       notifyListeners();
     }
   }
