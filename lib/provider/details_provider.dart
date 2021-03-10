@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:rest_o/data/api/api_helper.dart';
 import 'package:rest_o/data/model/restaurant_details.dart';
@@ -34,6 +36,10 @@ class DetailsProvider extends ChangeNotifier {
         _restaurantDetails = restaurant;
         notifyListeners();
       }
+    } on SocketException {
+      _stateDetails = DetailsState.Error;
+      _messageDetails =
+          'No internet connection detected, please check your internet';
     } catch (e) {
       _stateDetails = DetailsState.Error;
       _messageDetails = 'Error $e';
