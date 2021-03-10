@@ -11,7 +11,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ListProvider>(context, listen: false).getList();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -31,11 +30,11 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Consumer<ListProvider>(
         builder: (context, state, _) {
-          if (state.stateList == ResultState.Loading) {
+          if (state.stateList == ListState.Loading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state.stateList == ResultState.HasData) {
+          } else if (state.stateList == ListState.HasData) {
             final List<Restaurant> restaurants =
                 state.restaurantsList.restaurants;
 
@@ -61,14 +60,14 @@ class HomeScreen extends StatelessWidget {
                 );
               },
             );
-          } else if (state.stateList == ResultState.NoData) {
+          } else if (state.stateList == ListState.NoData) {
             return Center(
               child: Text(
                 state.messageList,
                 style: Theme.of(context).textTheme.headline6,
               ),
             );
-          } else if (state.stateList == ResultState.Error) {
+          } else if (state.stateList == ListState.Error) {
             return Center(
               child: Text(
                 state.messageList,

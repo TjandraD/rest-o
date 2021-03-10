@@ -2,39 +2,41 @@ import 'package:flutter/foundation.dart';
 import 'package:rest_o/data/api/api_helper.dart';
 import 'package:rest_o/data/model/restaurant_list.dart';
 
-enum ResultState { Loading, NoData, HasData, Error }
+enum ListState { Loading, NoData, HasData, Error }
 
 class ListProvider extends ChangeNotifier {
   final ApiHelper apiHelper;
 
-  ListProvider({@required this.apiHelper});
+  ListProvider({@required this.apiHelper}) {
+    _getList();
+  }
 
   RestaurantList _restaurantsList;
   String _messageList = '';
-  ResultState _stateList;
+  ListState _stateList;
 
   RestaurantList get restaurantsList => _restaurantsList;
 
   String get messageList => _messageList;
 
-  ResultState get stateList => _stateList;
+  ListState get stateList => _stateList;
 
-  Future<dynamic> getList() async {
+  Future<dynamic> _getList() async {
     try {
-      _stateList = ResultState.Loading;
+      _stateList = ListState.Loading;
       notifyListeners();
       final restaurant = await apiHelper.getRestaurantList();
       if (restaurant.restaurants.isEmpty) {
-        _stateList = ResultState.NoData;
+        _stateList = ListState.NoData;
         _messageList = 'Empty Data';
         notifyListeners();
       } else {
-        _stateList = ResultState.HasData;
+        _stateList = ListState.HasData;
         _restaurantsList = restaurant;
         notifyListeners();
       }
     } catch (e) {
-      _stateList = ResultState.Error;
+      _stateList = ListState.Error;
       _messageList = 'Error $e';
       notifyListeners();
     }
