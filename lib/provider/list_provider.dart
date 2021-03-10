@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:rest_o/data/api/api_helper.dart';
 import 'package:rest_o/data/model/restaurant_list.dart';
@@ -35,6 +37,10 @@ class ListProvider extends ChangeNotifier {
         _restaurantsList = restaurant;
         notifyListeners();
       }
+    } on SocketException {
+      _stateList = ListState.Error;
+      _messageList =
+          'No internet connection detected, please check your internet';
     } catch (e) {
       _stateList = ListState.Error;
       _messageList = 'Error $e';
