@@ -189,9 +189,13 @@ class DetailsScreen extends StatelessWidget {
                 );
               } else if (state.stateDetails == DetailsState.Error) {
                 return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.network(
-                        'https://assets8.lottiefiles.com/packages/lf20_f1cFsO.json'),
+                    Lottie.asset(
+                      'assets/json/error_animation.json',
+                      width: 100.0,
+                      height: 100.0,
+                    ),
                     Text(
                       state.messageDetails,
                       style: Theme.of(context).textTheme.headline5,
@@ -200,12 +204,19 @@ class DetailsScreen extends StatelessWidget {
                 );
               } else if (state.stateDetails == DetailsState.Loading) {
                 return Lottie.network(
-                    'https://assets10.lottiefiles.com/datafiles/kn5W819UTw4eDwEBTOscVxDtsBaRzRSLnlqWen3o/Loading/data.json');
+                  'https://assets10.lottiefiles.com/datafiles/kn5W819UTw4eDwEBTOscVxDtsBaRzRSLnlqWen3o/Loading/data.json',
+                  width: 100.0,
+                  height: 100.0,
+                );
               } else if (state.stateDetails == DetailsState.NoData) {
                 return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Lottie.network(
-                        'https://assets3.lottiefiles.com/packages/lf20_WUEvZP.json'),
+                      'https://assets3.lottiefiles.com/packages/lf20_WUEvZP.json',
+                      width: 100.0,
+                      height: 100.0,
+                    ),
                     Text(
                       state.messageDetails,
                       style: Theme.of(context).textTheme.headline5,
@@ -214,9 +225,13 @@ class DetailsScreen extends StatelessWidget {
                 );
               } else {
                 return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Lottie.network(
-                        'https://assets8.lottiefiles.com/packages/lf20_f1cFsO.json'),
+                      'https://assets8.lottiefiles.com/packages/lf20_f1cFsO.json',
+                      width: 100.0,
+                      height: 100.0,
+                    ),
                     Text(
                       state.messageDetails,
                       style: Theme.of(context).textTheme.headline5,

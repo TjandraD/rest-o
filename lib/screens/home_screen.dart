@@ -34,7 +34,10 @@ class HomeScreen extends StatelessWidget {
           if (state.stateList == ListState.Loading) {
             return Center(
               child: Lottie.network(
-                  'https://assets10.lottiefiles.com/datafiles/kn5W819UTw4eDwEBTOscVxDtsBaRzRSLnlqWen3o/Loading/data.json'),
+                'https://assets10.lottiefiles.com/datafiles/kn5W819UTw4eDwEBTOscVxDtsBaRzRSLnlqWen3o/Loading/data.json',
+                width: 100.0,
+                height: 100.0,
+              ),
             );
           } else if (state.stateList == ListState.HasData) {
             final List<Restaurant> restaurants =
@@ -65,9 +68,13 @@ class HomeScreen extends StatelessWidget {
           } else if (state.stateList == ListState.NoData) {
             return Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Lottie.network(
-                      'https://assets3.lottiefiles.com/packages/lf20_WUEvZP.json'),
+                    'https://assets3.lottiefiles.com/packages/lf20_WUEvZP.json',
+                    width: 100.0,
+                    height: 100.0,
+                  ),
                   Text(
                     state.messageList,
                     style: Theme.of(context).textTheme.headline6,
@@ -78,9 +85,13 @@ class HomeScreen extends StatelessWidget {
           } else if (state.stateList == ListState.Error) {
             return Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Lottie.network(
-                      'https://assets8.lottiefiles.com/packages/lf20_f1cFsO.json'),
+                  Lottie.asset(
+                    'assets/json/error_animation.json',
+                    width: 100.0,
+                    height: 100.0,
+                  ),
                   Text(
                     state.messageList,
                     style: Theme.of(context).textTheme.headline5,
