@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_o/data/model/restaurant_details.dart';
 import 'package:rest_o/provider/details_provider.dart';
@@ -185,11 +186,19 @@ class DetailsScreen extends StatelessWidget {
                   ),
                 );
               } else if (state.stateDetails == DetailsState.Error) {
-                return Center(
-                  child: Text(
-                    state.messageDetails,
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: (height / 2) - 150,
+                      width: width,
+                    ),
+                    Lottie.network(
+                        'https://assets8.lottiefiles.com/packages/lf20_f1cFsO.json'),
+                    Text(
+                      state.messageDetails,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  ],
                 );
               } else if (state.stateDetails == DetailsState.Loading) {
                 return Column(
@@ -198,15 +207,24 @@ class DetailsScreen extends StatelessWidget {
                       height: (height / 2) - 50,
                       width: width,
                     ),
-                    CircularProgressIndicator(),
+                    Lottie.network(
+                        'https://assets10.lottiefiles.com/datafiles/kn5W819UTw4eDwEBTOscVxDtsBaRzRSLnlqWen3o/Loading/data.json'),
                   ],
                 );
               } else if (state.stateDetails == DetailsState.NoData) {
-                return Center(
-                  child: Text(
-                    state.messageDetails,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: (height / 2) - 150,
+                      width: width,
+                    ),
+                    Lottie.network(
+                        'https://assets3.lottiefiles.com/packages/lf20_WUEvZP.json'),
+                    Text(
+                      state.messageDetails,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  ],
                 );
               } else {
                 return Center(

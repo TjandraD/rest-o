@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_o/provider/list_provider.dart';
 import '../widgets/resto_search.dart';
@@ -32,7 +33,8 @@ class HomeScreen extends StatelessWidget {
         builder: (context, state, _) {
           if (state.stateList == ListState.Loading) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: Lottie.network(
+                  'https://assets10.lottiefiles.com/datafiles/kn5W819UTw4eDwEBTOscVxDtsBaRzRSLnlqWen3o/Loading/data.json'),
             );
           } else if (state.stateList == ListState.HasData) {
             final List<Restaurant> restaurants =
@@ -62,16 +64,28 @@ class HomeScreen extends StatelessWidget {
             );
           } else if (state.stateList == ListState.NoData) {
             return Center(
-              child: Text(
-                state.messageList,
-                style: Theme.of(context).textTheme.headline6,
+              child: Column(
+                children: [
+                  Lottie.network(
+                      'https://assets3.lottiefiles.com/packages/lf20_WUEvZP.json'),
+                  Text(
+                    state.messageList,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ],
               ),
             );
           } else if (state.stateList == ListState.Error) {
             return Center(
-              child: Text(
-                state.messageList,
-                style: Theme.of(context).textTheme.headline5,
+              child: Column(
+                children: [
+                  Lottie.network(
+                      'https://assets8.lottiefiles.com/packages/lf20_f1cFsO.json'),
+                  Text(
+                    state.messageList,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
               ),
             );
           } else {

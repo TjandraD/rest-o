@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rest_o/data/api/api_helper.dart';
 import 'package:rest_o/data/model/restaurant_search.dart';
 import 'package:rest_o/widgets/resto_card.dart';
@@ -59,11 +60,13 @@ class RestaurantSearch extends SearchDelegate<Restaurant> {
           );
         } else if (snapshot.hasError) {
           return Center(
-            child: Icon(Icons.error),
+            child: Lottie.network(
+                'https://assets8.lottiefiles.com/packages/lf20_f1cFsO.json'),
           );
         } else {
           return Center(
-            child: CircularProgressIndicator(),
+            child: Lottie.network(
+                'https://assets10.lottiefiles.com/datafiles/kn5W819UTw4eDwEBTOscVxDtsBaRzRSLnlqWen3o/Loading/data.json'),
           );
         }
       },
