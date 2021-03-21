@@ -5,7 +5,9 @@ import 'package:rest_o/data/api/api_helper.dart';
 import 'package:rest_o/provider/details_provider.dart';
 import 'package:rest_o/provider/list_provider.dart';
 import 'package:rest_o/screens/details_screen.dart';
+import 'package:rest_o/screens/favorites_screen.dart';
 import 'package:rest_o/screens/home_screen.dart';
+import 'package:rest_o/screens/settings_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,6 +33,10 @@ class MyApp extends StatelessWidget {
             child: DetailsScreen(
               restaurantId: ModalRoute.of(context).settings.arguments,
             )),
+        FavoritesScreen.id: (context) => ChangeNotifierProvider<ListProvider>(
+            create: (context) => ListProvider(apiHelper: ApiHelper()),
+            child: FavoritesScreen()),
+        SettingsScreen.id: (_) => SettingsScreen(),
       },
     );
   }

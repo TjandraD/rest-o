@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:rest_o/data/model/restaurant_list.dart';
 import 'package:rest_o/provider/list_provider.dart';
-import 'package:rest_o/screens/favorites_screen.dart';
 import 'package:rest_o/screens/settings_screen.dart';
-import '../widgets/resto_search.dart';
-import '../data/model/restaurant_list.dart';
-import '../widgets/resto_card.dart';
-import '../screens/details_screen.dart';
+import 'package:rest_o/widgets/resto_card.dart';
+import 'package:rest_o/widgets/resto_search.dart';
 
-class HomeScreen extends StatelessWidget {
-  static const String id = 'home_screen';
+import 'details_screen.dart';
+
+class FavoritesScreen extends StatelessWidget {
+  static const String id = 'favorites_screen';
 
   @override
   Widget build(BuildContext context) {
@@ -120,9 +120,7 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.favorite_outline),
         backgroundColor: Colors.red[300],
-        onPressed: () {
-          Navigator.pushNamed(context, FavoritesScreen.id);
-        },
+        onPressed: () {},
       ),
     );
   }
