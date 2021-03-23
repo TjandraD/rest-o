@@ -18,6 +18,8 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Provider.of<DetailsProvider>(context, listen: false)
         .getDetails(restaurantId);
+    Provider.of<DetailsProvider>(context, listen: false)
+        .getRestoFavorited(restaurantId);
 
     return Scaffold(
       body: Center(
@@ -120,8 +122,8 @@ class DetailsScreen extends StatelessWidget {
                                     ? Colors.red
                                     : Colors.grey[600],
                                 onPressed: () {
-                                  state.isRestoFavorited =
-                                      !state.isRestoFavorited;
+                                  state.onFavClicked(
+                                      state.restaurantsDetails, id);
                                 },
                               ),
                             ],

@@ -1,12 +1,14 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rest_o/data/api/api_helper.dart';
+import 'package:rest_o/data/db/db_helper.dart';
 import 'package:rest_o/data/model/restaurant_details.dart';
 
 enum DetailsState { Loading, NoData, HasData, Error }
 
 class DetailsProvider extends ChangeNotifier {
   final ApiHelper apiHelper;
+  final DatabaseHelper _db = DatabaseHelper();
 
   DetailsProvider({@required this.apiHelper});
 
@@ -60,8 +62,36 @@ class DetailsProvider extends ChangeNotifier {
   bool get isRestoFavorited => _isRestoFavorited;
   String get menuSelected => _menuSelected;
 
-  set isRestoFavorited(bool newValue) {
-    _isRestoFavorited = newValue;
+  Future<dynamic> getRestoFavorited(String id) async {
+    var result = await _db.getFavoriteById(id);
+    _isRestoFavorited = result.isNotEmpty;
+    notifyListeners();
+  }
+
+  Future<void> _addFavResto(RestaurantDetails restaurant) async {
+    try {
+      await _db.insertFavorite(restaurant);
+      _isRestoFavorited = true;
+    } catch (e) {
+      print(">>> Failed insert to favorites");
+    }
+  }
+
+  Future<void> _removeFavResto(String id) async {
+    try {
+      await _db.removeFavorite(id);
+      _isRestoFavorited = false;
+    } catch (e) {
+      print(">>> Failed remove from favorites");
+    }
+  }
+
+  Future<void> onFavClicked(RestaurantDetails restaurant, String id) async {
+    if (_isRestoFavorited) {
+      await _removeFavResto(id);
+    } else {
+      await _addFavResto(restaurant);
+    }
     notifyListeners();
   }
 

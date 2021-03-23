@@ -3,9 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_o/data/model/restaurant_list.dart';
 import 'package:rest_o/provider/list_provider.dart';
-import 'package:rest_o/screens/settings_screen.dart';
 import 'package:rest_o/widgets/resto_card.dart';
-import 'package:rest_o/widgets/resto_search.dart';
 
 import 'details_screen.dart';
 
@@ -17,25 +15,8 @@ class FavoritesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Rest-O',
+          'Favorites Resto',
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: RestaurantSearch(),
-              );
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, SettingsScreen.id);
-            },
-          ),
-        ],
       ),
       body: Consumer<ListProvider>(
         builder: (context, state, _) {
@@ -116,11 +97,6 @@ class FavoritesScreen extends StatelessWidget {
             );
           }
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.favorite_outline),
-        backgroundColor: Colors.red[300],
-        onPressed: () {},
       ),
     );
   }
