@@ -4,13 +4,36 @@ import 'package:provider/provider.dart';
 import 'package:rest_o/provider/list_provider.dart';
 import 'package:rest_o/screens/favorites_screen.dart';
 import 'package:rest_o/screens/settings_screen.dart';
+import 'package:rest_o/utils/background_service.dart';
+import 'package:rest_o/utils/notification_helper.dart';
 import '../widgets/resto_search.dart';
 import '../data/model/restaurant_list.dart';
 import '../widgets/resto_card.dart';
 import '../screens/details_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final NotificationHelper _notificationHelper = NotificationHelper();
+  final BackgroundService _backgroundService = BackgroundService();
+
+  @override
+  void initState() {
+    super.initState();
+    port.listen((_) async => await _backgroundService.someTask());
+    _notificationHelper.configureSelectNotificationSubject(context);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    selectNotificationSubject.close();
+  }
 
   @override
   Widget build(BuildContext context) {
