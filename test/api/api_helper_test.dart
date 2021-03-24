@@ -1,26 +1,46 @@
+import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rest_o/data/api/api_helper.dart';
+import 'package:mockito/mockito.dart';
+import 'package:flutter/services.dart';
+import 'package:rest_o/data/model/restaurant_details.dart';
+import 'package:rest_o/data/model/restaurant_list.dart';
+
+class MockClient extends Mock implements ApiHelper {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   group("API Helper test", () {
-    ApiHelper apiHelper;
+    MockClient apiHelper;
 
     setUp(() {
-      apiHelper = ApiHelper();
+      apiHelper = MockClient();
     });
 
     test('Get restaurants list', () async {
-      final response = await apiHelper.getRestaurantList();
+      when(apiHelper.getRestaurantList()).thenAnswer((_) async {
+        var result =
+            await rootBundle.loadString('assets/json/restaurant_list.json');
+
+        return RestaurantList.fromJson(jsonDecode(result));
+      });
+
+      var response = await apiHelper.getRestaurantList();
       var restaurant = response.restaurants[0];
       expect(restaurant.name, "Melting Pot");
     });
 
     test('Get restaurant from id', () async {
       String id = "rqdv5juczeskfw1e867";
-      final response = await apiHelper.getRestaurantList();
-      final restaurants =
-          response.restaurants.where((resto) => resto.id.contains(id)).toList();
-      var restaurant = restaurants[0];
+      when(apiHelper.getRestaurantDetails(id)).thenAnswer((_) async {
+        var result =
+            await rootBundle.loadString('assets/json/restaurant_detail.json');
+
+        return RestaurantDetails.fromJson(jsonDecode(result));
+      });
+
+      final response = await apiHelper.getRestaurantDetails(id);
+      final restaurant = response.restaurant;
       expect(restaurant.name, "Melting Pot");
     });
   });
