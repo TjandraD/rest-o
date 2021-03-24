@@ -123,7 +123,7 @@ class DetailsScreen extends StatelessWidget {
                                     : Colors.grey[600],
                                 onPressed: () {
                                   state.onFavClicked(
-                                      state.restaurantsDetails, id);
+                                      state.restaurantsDetails, restaurantId);
                                 },
                               ),
                             ],
